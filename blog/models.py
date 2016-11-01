@@ -10,3 +10,5 @@ class Post(models.Model):
     views = models.IntegerField(default=0)
     url = models.URLField(blank=True)
 
+    def __str__(self):
+        return self.title

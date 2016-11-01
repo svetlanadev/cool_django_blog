@@ -3,7 +3,21 @@
 
 
 {% block content %}
-    <h1>Start blog</h1>
-    <img src="{% static 'images/django.jpg' %}" alt="django images"/>
-    <!--<img src="static/images/django.jpg" alt="django images"/>-->
+    <!--<h1>Start blog</h1>-->
+    <a class="btn btn-primary btn-lg" href="{% url 'blog:add_post' %}" role="button">Add new Post</a>
+    {% if posts %}
+        {% for post in posts %}
+        <li>
+           <h2>{{ post.title}}</h2>
+           <a class="btn btn-default" href="{% url 'blog:edit_post' post_id=post.id %}"><span class="glyphicon glyphicon-pencil"></span></a>
+           <div class="date"><p><strong>{{ post.created}}</strong></p></div>
+           {{ post.body}}
+           {{ post.views}}
+        </li>
+        {% endfor %}
+    {% else %}
+        <p>Sorry, Mate there are no posts</p>
+    {% endif %}
+
 {% endblock %}
+
