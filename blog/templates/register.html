@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+
+{% block title %}
+    Register
+{% endblock %}
+
+{% block content %}
+    {% if registered %}
+    <strong>Thank's for registered</strong>
+    {% else %}
+    <strong>Register here:</strong>
+
+    <form method="POST"> {% csrf_token %}
+        {{ user_form.as_p }}
+    <button type="submit" class="save btn btn-default" value="Register" >Submit</button>
+    </form>
+    {% endif %}
+{% endblock %}

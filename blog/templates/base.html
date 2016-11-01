@@ -45,10 +45,20 @@
 <div class="blog-masthead">
       <div class="container">
         <nav class="blog-nav">
-          <a class="blog-nav-item active" href="#">Home</a>
-          <a class="blog-nav-item" href="#">New features</a>
+          <a class="blog-nav-item active" href="/index/">Home</a>
           <a class="blog-nav-item" href="#">About</a>
-          <a class="blog-nav-item" href="#">Register</a>
+          <!--<a class="blog-nav-item" href="{% url 'blog:login' %}">Login</a>-->
+          <!--<a class="blog-nav-item" href="{% url 'blog:register' %}">Register</a>-->
+          <a class="blog-nav-item"
+            {% if user.is_authenticated %}
+                <p>{{ user.username }}, wellcome to Blog!</p>
+                <a href="/logout">Logout..</a>
+            {% else %}
+                <p>Wellcome to Blog!</p>
+                <a href="/register/">Register</a>
+                <a href="/login/">Login</a>
+            {% endif %}
+          </a>
         </nav>
       </div>
     </div>

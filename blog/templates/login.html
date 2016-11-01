@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+
+{% block title %}
+    Login
+{% endblock %}
+
+{% block content %}
+<p>Login to Cool Django Blog</p>
+    <form method="POST">
+        {% csrf_token %}
+        Username: <input type="text" name="username" value="" size="50" /><br />
+        Password: <input type="password" name="password" value="" size="50" /><br />
+        <input type="submit" value="login" />
+    </form>
+{% endblock %}
+
