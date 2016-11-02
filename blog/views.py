@@ -13,10 +13,13 @@ def index(request):
     return render(request, 'index.html', {'posts': posts})
 
 def add_post(request):
+    author = request.user
     if request.method == 'POST':
         form = PostForm(request.POST)
         if form.is_valid():
-            form.save(commit=True)
+            post = form.save(commit=False)
+            post.author = author
+            post.save()
             return redirect('/index/')
         else:
             print(form.errors)
@@ -27,14 +30,33 @@ def add_post(request):
 
 def edit_post(request, post_id):
     post = get_object_or_404(Post, id=post_id)
+    if request.user.id != post.author.id:
+        return redirect('/index/')
     if request.method =='POST':
         form = PostForm(request.POST, instance=post)
         if form.is_valid():
-            form.save()
+            post = form.save(commit=False)
+            post.author = request.user
+            post.save()
             return redirect('/index/')
     else:
         form = PostForm(instance=post)
     return render(request, 'add_post.html', {'form': form})
+
+
+# def post_edit(request, pk):
+#     post = get_object_or_404(Post, pk=pk)
+#     if request.method == "POST":
+#         form = PostForm(request.POST, instance=post)
+#         if form.is_valid():
+#             post = form.save(commit=False)
+#             post.author = request.user
+#             post.published_date = timezone.now()
+#             post.save()
+#             return redirect('blog.views.post_detail', pk=post.pk)
+#     else:
+#         form = PostForm(instance=post)
+#     return render(request, 'blog/post_edit.html', {'form': form})
 
 
 def register(request):

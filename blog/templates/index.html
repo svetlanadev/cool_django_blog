@@ -7,10 +7,12 @@
 {% if posts %}
     {% if user.is_authenticated %}
         <a class="btn btn-primary btn-lg" href="{% url 'blog:add_post' %}" role="button">Add new Post</a>
+
         {% for post in posts %}
         <li>
            <h2>{{ post.title}}</h2>
            <a class="btn btn-default" href="{% url 'blog:edit_post' post_id=post.id %}"><span class="glyphicon glyphicon-pencil"></span></a>
+           <strong>{{ post.author}}</strong>
            <div class="date"><p><strong>{{ post.created}}</strong></p></div>
            {{ post.body}}
            {{ post.views}}
@@ -20,6 +22,7 @@
         {% for post in posts %}
         <li>
            <h2>{{ post.title}}</h2>
+           <strong>{{ post.author}}</strong>
            <div class="date"><p><strong>{{ post.created}}</strong></p></div>
            {{ post.body}}
            {{ post.views}}
