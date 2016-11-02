@@ -44,21 +44,6 @@ def edit_post(request, post_id):
     return render(request, 'add_post.html', {'form': form})
 
 
-# def post_edit(request, pk):
-#     post = get_object_or_404(Post, pk=pk)
-#     if request.method == "POST":
-#         form = PostForm(request.POST, instance=post)
-#         if form.is_valid():
-#             post = form.save(commit=False)
-#             post.author = request.user
-#             post.published_date = timezone.now()
-#             post.save()
-#             return redirect('blog.views.post_detail', pk=post.pk)
-#     else:
-#         form = PostForm(instance=post)
-#     return render(request, 'blog/post_edit.html', {'form': form})
-
-
 def register(request):
     registered = False
     if request.method == 'POST':
